@@ -1,6 +1,6 @@
 ﻿namespace ToDo.Services.ToDoAPI.Models
 {
-    public class Task
+    public class TaskOrder
     {
         public int Id { get; set; }
         public string Name { get; set; }

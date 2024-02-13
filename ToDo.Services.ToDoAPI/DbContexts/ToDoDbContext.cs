@@ -8,13 +8,13 @@ namespace ToDo.Services.ToDoAPI.DbContexts
     {
         public ToDoDbContext(DbContextOptions<ToDoDbContext> options) : base(options) { }
 
-        public DbSet<Task> Tasks { get; set; }
+        public DbSet<TaskOrder> Tasks { get; set; }
         public DbSet<Status> Statuses { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<Task>(entity =>
+            modelBuilder.Entity<TaskOrder>(entity =>
             {
                 entity.HasKey(e => e.Id).HasName("task_pkey");
                 entity.ToTable("Tasks");

@@ -7,6 +7,6 @@ namespace ToDo.Services.ToDoAPI.Models
     {
         public int Status_Id { get; set; }
         public string StatusName { get; set; }
-        public virtual ICollection<Task> Tasks { get; set; }
+        public virtual IEnumerable<TaskOrder> Tasks { get; set; }
     }
 }
