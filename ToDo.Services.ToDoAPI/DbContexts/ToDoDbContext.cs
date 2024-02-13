@@ -21,7 +21,7 @@ namespace ToDo.Services.ToDoAPI.DbContexts
                 entity.Property(e => e.Id).HasColumnName("id");
                 entity.Property(e => e.Name).HasColumnName("name").HasMaxLength(100);
                 entity.Property(e => e.Description).HasColumnName("description").HasMaxLength(255);
-                entity.HasOne(e => e.Status).WithMany(entity => Tasks);
+                entity.HasOne(e => e.Status).WithMany(entity => entity.Tasks);
             });
 
             modelBuilder.Entity<Status>(entity =>
