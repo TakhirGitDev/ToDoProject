@@ -37,7 +37,7 @@ namespace ToDo.Services.ToDoAPI
             services.AddScoped<ITaskRepository, TaskRepository>();
 
             services.AddControllers();
-
+            
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "ToDo.Services.ToDoAPI", Version = "v1" });
