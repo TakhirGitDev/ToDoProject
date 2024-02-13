@@ -8,6 +8,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ToDo.Web.Services;
+using ToDo.Web.Services.IServices;
 
 namespace ToDo.Web
 {
@@ -24,6 +26,9 @@ namespace ToDo.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddHttpClient<IToDoService, ToDoService>();
+            SD.ToDoAPIBase = Configuration["ServiceUrls:ToDoAPI"];
+            services.AddScoped<IToDoService, ToDoService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

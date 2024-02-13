@@ -3,7 +3,7 @@ using ToDo.Web.Models.Dtos;
 
 namespace ToDo.Web.Services.IServices
 {
-    public interface IToDoService
+    public interface IToDoService: IBaseService
     {
         Task<T> GetTasksAsync<T>();
         Task<T> GetTaskByIdAsync<T>(int taskId);
