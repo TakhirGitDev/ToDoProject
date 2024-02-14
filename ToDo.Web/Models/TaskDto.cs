@@ -1,4 +1,4 @@
-﻿namespace ToDo.Web.Models.Dtos
+﻿namespace ToDo.Web.Models
 {
     public class TaskDto
     {

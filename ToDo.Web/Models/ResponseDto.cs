@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace ToDo.Web.Models.Dtos
+namespace ToDo.Web.Models
 {
     public class ResponseDto
     {

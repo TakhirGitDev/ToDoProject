@@ -1,7 +1,6 @@
 ﻿using System.Net.Http;
 using System.Threading.Tasks;
 using ToDo.Web.Models;
-using ToDo.Web.Models.Dtos;
 using ToDo.Web.Services.IServices;
 
 namespace ToDo.Web.Services
@@ -30,7 +29,7 @@ namespace ToDo.Web.Services
             return await this.SendAsync<T>(new ApiRequest()
             {
                 ApiType = SD.ApiType.DELETE,
-                ApiUrl = SD.ToDoAPIBase + "/api/tasks"+taskId
+                ApiUrl = SD.ToDoAPIBase + "/api/tasks/"+taskId
             });
         }
 
@@ -39,7 +38,7 @@ namespace ToDo.Web.Services
             return await this.SendAsync<T>(new ApiRequest()
             {
                 ApiType = SD.ApiType.GET,
-                ApiUrl = SD.ToDoAPIBase + "/api/tasks"+taskId
+                ApiUrl = SD.ToDoAPIBase + "/api/tasks/"+taskId
             });
         }
 

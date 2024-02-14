@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using ToDo.Web.Models.Dtos;
+using ToDo.Web.Models;
 
 namespace ToDo.Web.Services.IServices
 {

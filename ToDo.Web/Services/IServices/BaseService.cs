@@ -5,7 +5,6 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using ToDo.Web.Models;
-using ToDo.Web.Models.Dtos;
 
 namespace ToDo.Web.Services.IServices
 {
@@ -19,11 +18,6 @@ namespace ToDo.Web.Services.IServices
         {
             this.responseModel = new ResponseDto() ;
             this.httpClient = httpClient ;
-        }
-
-        public void Dispose()
-        {
-            GC.SuppressFinalize(true);
         }
 
         public async Task<T> SendAsync<T>(ApiRequest apiRequest)
@@ -79,6 +73,10 @@ namespace ToDo.Web.Services.IServices
                 var apiResponseDto = JsonConvert.DeserializeObject<T> (res);
                 return apiResponseDto;
             }
+        }
+        public void Dispose()
+        {
+            GC.SuppressFinalize(true);
         }
     }
 }
