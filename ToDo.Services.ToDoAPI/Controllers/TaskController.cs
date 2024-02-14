@@ -10,18 +10,21 @@ using ToDo.Services.ToDoAPI.Repository;
 namespace ToDo.Services.ToDoAPI.Controllers
 {
 
-    [Route("api/tasks")]
+    
     public class TaskController : Controller
     {
         protected ResponseDto _responseDto;
         private ITaskRepository _taskRepository;
-        public TaskController(ITaskRepository taskRepository)
+        private IStatusRepository _statusRepository;
+        public TaskController(ITaskRepository taskRepository, IStatusRepository statusRepository)
         {
             _taskRepository = taskRepository;
+            _statusRepository = statusRepository;
             _responseDto = new ResponseDto();
         }
 
         [HttpGet]
+        [Route("api/tasks")]
         public async Task<object> Get()
         {
             try
@@ -31,7 +34,7 @@ namespace ToDo.Services.ToDoAPI.Controllers
             }
             catch (Exception ex)
             {
-                _responseDto.IsSuccess= false;
+                _responseDto.IsSuccess = false;
                 _responseDto.ErrorMessages = new List<string>() { ex.ToString() };
             }
 
@@ -40,7 +43,26 @@ namespace ToDo.Services.ToDoAPI.Controllers
         }
 
         [HttpGet]
-        [Route("{id}")]
+        [Route("api/statuses")]
+        public async Task<object> GetStatuses()
+        {
+            try
+            {
+                IEnumerable<StatusDto> statusDtos = await _statusRepository.GetStatuses();
+                _responseDto.Result = statusDtos;
+            }
+            catch (Exception ex)
+            {
+                _responseDto.IsSuccess = false;
+                _responseDto.ErrorMessages = new List<string>() { ex.ToString() };
+            }
+
+            return _responseDto;
+
+        }
+
+        [HttpGet]
+        [Route("api/tasks/{id}")]
         public async Task<object> Get(int id)
         {
             try
@@ -59,6 +81,7 @@ namespace ToDo.Services.ToDoAPI.Controllers
         }
 
         [HttpPost]
+        [Route("api/tasks")]
         public async Task<object> Post([FromBody] TaskDto taskDto)
         {
             try
@@ -77,6 +100,7 @@ namespace ToDo.Services.ToDoAPI.Controllers
         }
 
         [HttpPut]
+        [Route("api/tasks")]
         public async Task<object> Put([FromBody] TaskDto taskDto)
         {
             try
@@ -95,7 +119,7 @@ namespace ToDo.Services.ToDoAPI.Controllers
         }
 
         [HttpDelete]
-        [Route("{id}")]
+        [Route("api/tasks/{id}")]
         public async Task<object> Delete(int id)
         {
             try

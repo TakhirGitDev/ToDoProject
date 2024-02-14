@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -16,20 +17,36 @@ namespace ToDo.Web.Controllers
             _service = service;
         }
 
+        public async Task<List<StatusDto>> Statuses()
+        {
+            List<StatusDto> statuses = new List<StatusDto>();
+
+            var response_statuses = await _service.GetStatusesAsync<ResponseDto>();
+            if (response_statuses != null && response_statuses.IsSuccess)
+            {
+                statuses = JsonConvert.DeserializeObject<List<StatusDto>>(Convert.ToString(response_statuses.Result));
+            }
+            return statuses;
+        }
         public async Task<IActionResult> TaskIndex()
         {
             List<TaskDto> tasks = new List<TaskDto>();
-            var response = await _service.GetTasksAsync<ResponseDto>();
-            if (response != null && response.IsSuccess)
+
+            ViewBag.Stats = new SelectList(await Statuses(), "Status_Id", "StatusName");
+
+            var response_tasks = await _service.GetTasksAsync<ResponseDto>();
+            if (response_tasks != null && response_tasks.IsSuccess)
             {
-                tasks = JsonConvert.DeserializeObject<List<TaskDto>>(Convert.ToString(response.Result));
+                tasks = JsonConvert.DeserializeObject<List<TaskDto>>(Convert.ToString(response_tasks.Result));
             }
+            //var tupleModel = new Tuple<List<TaskDto>, List<StatusDto>>(tasks, statuses);
             return View(tasks);
         }
 
         public async Task<IActionResult> TaskCreate()
         {
 
+            ViewBag.Stats = new SelectList(await Statuses(), "Status_Id", "StatusName");
             return View();
         }
 
@@ -51,6 +68,7 @@ namespace ToDo.Web.Controllers
 
         public async Task<IActionResult> TaskEdit(int Id)
         {
+            ViewBag.Stats = new SelectList(await Statuses(), "Status_Id", "StatusName");
             var response = await _service.GetTaskByIdAsync<ResponseDto>(Id);
             if (response != null && response.IsSuccess)
             {
@@ -78,6 +96,7 @@ namespace ToDo.Web.Controllers
 
         public async Task<IActionResult> TaskDelete(int Id)
         {
+            ViewBag.Stats = new SelectList(await Statuses(), "Status_Id", "StatusName");
             var response = await _service.GetTaskByIdAsync<ResponseDto>(Id);
             if (response != null && response.IsSuccess)
             {

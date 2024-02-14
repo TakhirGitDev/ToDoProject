@@ -5,6 +5,7 @@ namespace ToDo.Web.Services.IServices
 {
     public interface IToDoService: IBaseService
     {
+        Task<T> GetStatusesAsync<T>();
         Task<T> GetTasksAsync<T>();
         Task<T> GetTaskByIdAsync<T>(int taskId);
         Task<T> CreateTaskAsync<T>(TaskDto taskDto);

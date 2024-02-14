@@ -37,7 +37,10 @@
                         @item.Description
                     </td>
                     <td>
-                        @item.StatusId
+                        <select asp-for="@item.StatusId" class="form-control" asp-items="ViewBag.Stats">
+                            <option>Выберите статус</option>
+                        </select>
+                        
                     </td>
                     <td>
                         <a asp-action="TaskEdit" class="btn btn-success" asp-route-Id="@item.Id">

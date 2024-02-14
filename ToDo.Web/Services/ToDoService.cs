@@ -8,6 +8,7 @@ namespace ToDo.Web.Services
     public class ToDoService : BaseService, IToDoService
     {
         private readonly IHttpClientFactory _httpClient;
+         
         public ToDoService(IHttpClientFactory httpClient): base(httpClient)
         {
             _httpClient = httpClient;
@@ -30,6 +31,15 @@ namespace ToDo.Web.Services
             {
                 ApiType = SD.ApiType.DELETE,
                 ApiUrl = SD.ToDoAPIBase + "/api/tasks/"+taskId
+            });
+        }
+
+        public async Task<T> GetStatusesAsync<T>()
+        {
+            return await this.SendAsync<T>(new ApiRequest()
+            {
+                ApiType = SD.ApiType.GET,
+                ApiUrl = SD.ToDoAPIBase + "/api/statuses"
             });
         }
 

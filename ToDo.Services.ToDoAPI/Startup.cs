@@ -35,6 +35,7 @@ namespace ToDo.Services.ToDoAPI
             services.AddAutoMapper(typeof(MappingProfile));
 
             services.AddScoped<ITaskRepository, TaskRepository>();
+            services.AddScoped<IStatusRepository,  StatusRepository>();
 
             services.AddControllers();
             
